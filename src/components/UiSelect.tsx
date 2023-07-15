@@ -12,16 +12,20 @@ interface Option {
 interface Props {
   options: Option[];
   value: string;
+  name: string;
   isVisible: boolean;
   suggestions?: string[];
   setIsVisible: (status: boolean) => void;
+  onChange: (event: { name: string; value: string }) => void;
 }
 export default function UiSelect({
   options,
   value,
+  name,
   isVisible,
   suggestions,
   setIsVisible,
+  onChange
 }: Props) {
   const selectedOption = useMemo(() => {
     return options.find(({ value: optionValue }) => optionValue === value);
@@ -34,6 +38,11 @@ export default function UiSelect({
 
   function toggleVisibility() {
     setIsVisible(!isVisible);
+  }
+
+  function setSelectedValue(selectedValue: string) {
+    onChange({name, value: selectedValue});
+    toggleVisibility();
   }
 
   return (
@@ -61,13 +70,15 @@ export default function UiSelect({
             </span>
           </div>
         )}
+        <span className="ml-3">
         <UiIcon icon="ChevronDown" />
+        </span>
       </button>
       {isVisible && (
-        <div className="text-dark-500 bg-white max-h-80 overflow-y-auto rounded-lg z-50 pr-4 mt-2 w-full border-gray-200  absolute border ">
+        <div className="text-dark-500 bg-white max-h-80 overflow-y-auto rounded-lg z-50 pr-4 mt-2 w-full border-gray-200 absolute border">
           {suggestionData &&<ul className="p-4 grid gap-3 border-b border-gray-200">
             {suggestionData.map((option, index) => (
-              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer">
+              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer" onClick={() => setSelectedValue(option.value)}>
                 {option.img && (
                 <Image src={option.img} alt="flag" width={20} height={20} />
               )}
@@ -77,7 +88,7 @@ export default function UiSelect({
           </ul>}
           <ul className="p-4 grid gap-3 ">
             {options.map((option, index) => (
-              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer">
+              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer" onClick={() => setSelectedValue(option.value)}>
                 {option.img && (
                 <Image src={option.img} alt="flag" width={20} height={20} />
               )}

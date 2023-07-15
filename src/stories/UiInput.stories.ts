@@ -6,9 +6,6 @@ const meta: Meta<typeof UiInput> = {
   title: 'Components/UiInput',
   component: UiInput,
   tags: ['autodocs'],
-  parameters: {
-    layout: 'centered',
-  },
 };
 
 export default meta;
