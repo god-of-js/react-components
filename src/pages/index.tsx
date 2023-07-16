@@ -2,17 +2,45 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import UiInput from '@/components/UiPhoneInput';
 import { useState } from 'react';
+import UiForm from '@/components/UiForm';
+import UiButton from '@/components/UiButton';
+import FormTest from '@/utils/validations/FormTest';
+import UiSelect from '@/components/UiSelect';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [value, setValue] = useState('')
+  const [formData, setFormData] = useState({
+    text: '',
+    select: '',
+  });
+
+  function handleOnChange({ name, value }: { name: string; value: string }) {
+    setFormData((data) => ({
+      ...data,
+      [name]: value,
+    }));
+  }
+  function onSubmit() {
+    alert('form submitted');
+  }
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
-      <UiInput value={value} onChange={({ value }) => setValue(value)}/>
-      {value}
+      <UiForm formData={formData} schema={FormTest} onSubmit={onSubmit}>
+        {({ errors }) => (
+          <div className="grid gap-2">
+            <UiInput
+              name="text"
+              value={formData.text}
+              error={errors.text}
+              onChange={handleOnChange}
+            />
+            <UiButton>Submit Form</UiButton>
+          </div>
+        )}
+      </UiForm>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;

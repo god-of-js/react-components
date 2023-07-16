@@ -1,4 +1,4 @@
-import  ChevronDown from './icons/chevron-down.svg';
+import ChevronDown from './icons/chevron-down.svg';
 
 const icons = {
   ChevronDown,

@@ -4,15 +4,32 @@ import { getCountries, getCountryCallingCode } from 'react-phone-number-input';
 import en from 'react-phone-number-input/locale/en';
 import { useMemo, useState } from 'react';
 import UiSelect from './UiSelect';
+import UiField from './UiField';
 
-export type OnChangeParams = { name: string; value: string};
+export type OnChangeParams = { name: string; value: string };
 interface Props {
+  /***
+   * This is the current value of the variable
+   */
   value: string;
   defaultCountry?: string;
+  /***
+   * This is the error message. In most cases, it would come from the UiForm.tsx component.
+   */
+  error?: string;
+  /**
+   * This is the name of the field in the object. e.g if {gender: male}, the name would be gender.
+   */
+  name: string;
   onChange: (event: OnChangeParams) => void;
 }
-export default function UiInput({ value, defaultCountry = '+39', onChange = () => {} }: Props) {
-  const [isVisible, setIsVisible] = useState(false);
+export default function UiInput({
+  value,
+  defaultCountry = '+39',
+  error,
+  name,
+  onChange = () => {},
+}: Props) {
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const countryShortCodes = getCountries();
   const suggestions = ['+39', '+386'];
@@ -29,25 +46,44 @@ export default function UiInput({ value, defaultCountry = '+39', onChange = () =
     });
   }, [countryShortCodes]);
 
-  function sendValue(e: { target: { name: string; value: string } }) {
-    onChange({ name: e.target.name, value: e.target.value });
+  function sendValue(e: { target: { value: string } }) {
+    onChange({ name, value: e.target.value });
   }
+
   return (
-    <div className="relative w-full">
-      <div className="input-container overflow-hidden h-11 flex bg-white rounded-lg border-gray-200 border">
-        <div className="flex items-center bg-gray-100 w-fit border-gray-200 border-r">
-          <UiSelect
-            options={countriesOptions}
-            isVisible={isVisible}
-            name="country"
-            suggestions={suggestions}
-            value={selectedCountry}
-            setIsVisible={setIsVisible}
-            onChange={({ value }) => setSelectedCountry(value)}
+    <UiField error={error}>
+      <div className="relative w-full">
+        <div
+          className={`input-container overflow-hidden h-11 flex rounded-lg ${
+            !!error
+              ? 'bg-danger-100 border-danger-600'
+              : 'border-gray-200 bg-white '
+          } border`}
+        >
+          <div
+            className={`flex items-center  w-fit  border-r ${
+              !!error
+                ? 'bg-danger-100 border-danger-600'
+                : 'bg-gray-100 border-gray-200'
+            }`}
+          >
+            <UiSelect
+              options={countriesOptions}
+              name="country"
+              suggestions={suggestions}
+              value={selectedCountry}
+              onChange={({ value }) => setSelectedCountry(value)}
+            />
+          </div>
+          <input
+            placeholder="000 0000000"
+            name={name}
+            value={value || ''}
+            className="w-full pl-2 outline-none bg-transparent text-black"
+            onChange={sendValue}
           />
         </div>
-        <input placeholder='000 0000000' value={value || ''} className="w-full pl-2 outline-none text-black" onChange={sendValue}/>
       </div>
-    </div>
+    </UiField>
   );
 }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import UiIcon from './UiIcon';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -13,35 +13,36 @@ interface Props {
   options: Option[];
   value: string;
   name: string;
-  isVisible: boolean;
   suggestions?: string[];
-  setIsVisible: (status: boolean) => void;
+  hasError?: boolean;
+  error?: string;
   onChange: (event: { name: string; value: string }) => void;
 }
 export default function UiSelect({
   options,
   value,
   name,
-  isVisible,
   suggestions,
-  setIsVisible,
-  onChange
+  onChange,
 }: Props) {
+  const [isVisible, setIsVisible] = useState(false);
   const selectedOption = useMemo(() => {
     return options.find(({ value: optionValue }) => optionValue === value);
   }, [value, options]);
 
   const suggestionData = useMemo(() => {
-      if (!suggestions) return;
-      return options.filter(({ value: optionValue }) => suggestions.includes(optionValue))
-  }, [suggestions, options])
+    if (!suggestions) return;
+    return options.filter(({ value: optionValue }) =>
+      suggestions.includes(optionValue),
+    );
+  }, [suggestions, options]);
 
   function toggleVisibility() {
     setIsVisible(!isVisible);
   }
 
   function setSelectedValue(selectedValue: string) {
-    onChange({name, value: selectedValue});
+    onChange({ name, value: selectedValue });
     toggleVisibility();
   }
 
@@ -71,27 +72,37 @@ export default function UiSelect({
           </div>
         )}
         <span className="ml-3">
-        <UiIcon icon="ChevronDown" />
+          <UiIcon icon="ChevronDown" />
         </span>
       </button>
       {isVisible && (
         <div className="text-dark-500 bg-white max-h-80 overflow-y-auto rounded-lg z-50 pr-4 mt-2 w-full border-gray-200 absolute border">
-          {suggestionData &&<ul className="p-4 grid gap-3 border-b border-gray-200">
-            {suggestionData.map((option, index) => (
-              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer" onClick={() => setSelectedValue(option.value)}>
-                {option.img && (
-                <Image src={option.img} alt="flag" width={20} height={20} />
-              )}
-                <span>{option.label}</span>
-              </li>
-            ))}
-          </ul>}
+          {suggestionData && (
+            <ul className="p-4 grid gap-3 border-b border-gray-200">
+              {suggestionData.map((option, index) => (
+                <li
+                  key={index}
+                  className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer"
+                  onClick={() => setSelectedValue(option.value)}
+                >
+                  {option.img && (
+                    <Image src={option.img} alt="flag" width={20} height={20} />
+                  )}
+                  <span>{option.label}</span>
+                </li>
+              ))}
+            </ul>
+          )}
           <ul className="p-4 grid gap-3 ">
             {options.map((option, index) => (
-              <li key={index} className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer" onClick={() => setSelectedValue(option.value)}>
+              <li
+                key={index}
+                className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer"
+                onClick={() => setSelectedValue(option.value)}
+              >
                 {option.img && (
-                <Image src={option.img} alt="flag" width={20} height={20} />
-              )}
+                  <Image src={option.img} alt="flag" width={20} height={20} />
+                )}
                 <span>{option.label}</span>
               </li>
             ))}
