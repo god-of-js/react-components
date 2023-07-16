@@ -51,7 +51,16 @@ export default function UiInput({
   }, [countryShortCodes]);
 
   function sendValue(e: { target: { value: string } }) {
-    onChange({ name, value: e.target.value });
+    let inputValue = e.target.value;
+
+    if (inputValue.length > 3) {
+      const firstPart = inputValue.slice(0, 3);
+      const secondPart = inputValue.slice(3);
+      onChange({ name, value: `${firstPart.replace(/\s/g, '')} ${secondPart.replace(/\s/g, '')}` });
+      return;
+
+    }
+    onChange({ name, value: inputValue });
   }
 
   return (
