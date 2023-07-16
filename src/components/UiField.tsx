@@ -1,5 +1,7 @@
 import React from 'react';
-
+/**
+ * This component is used to sync error and labels round all form components. it could potentially be used in other components like UiSelect, UiWysiwyg, UiTextArea, e.t.c.
+ */
 interface Props {
   error?: string;
   label?: string;
