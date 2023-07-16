@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "storybook dev -p 6006",
+    "run-app": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
