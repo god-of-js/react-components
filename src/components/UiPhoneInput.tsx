@@ -21,6 +21,9 @@ interface Props {
    * This is the name of the field in the object. e.g if {gender: male}, the name would be gender.
    */
   name: string;
+  /**
+   * This method receives an object of type { name: string, value: string}
+   */
   onChange: (event: OnChangeParams) => void;
 }
 export default function UiInput({
@@ -28,7 +31,7 @@ export default function UiInput({
   defaultCountry = '+39',
   error,
   name,
-  onChange = () => {},
+  onChange,
 }: Props) {
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const countryShortCodes = getCountries();

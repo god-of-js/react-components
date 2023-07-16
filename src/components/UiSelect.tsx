@@ -97,7 +97,7 @@ export default function UiSelect({
             {options.map((option, index) => (
               <li
                 key={index}
-                className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer"
+                className="text-sm flex gap-2 hover:bg-gray-50 p-1 cursor-pointer whitespace-nowrap overflow-hidden text-overflow-ellipsis"
                 onClick={() => setSelectedValue(option.value)}
               >
                 {option.img && (

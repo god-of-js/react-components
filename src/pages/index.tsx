@@ -5,7 +5,6 @@ import { useState } from 'react';
 import UiForm from '@/components/UiForm';
 import UiButton from '@/components/UiButton';
 import FormTest from '@/utils/validations/FormTest';
-import UiSelect from '@/components/UiSelect';
 
 const inter = Inter({ subsets: ['latin'] });
 
