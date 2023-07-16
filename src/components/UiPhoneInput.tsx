@@ -7,7 +7,7 @@ import UiSelect from './UiSelect';
 import UiField from './UiField';
 
 export type OnChangeParams = { name: string; value: string };
-interface Props {
+export interface Props {
   /***
    * This is the current value of the variable
    */

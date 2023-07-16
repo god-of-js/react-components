@@ -29,6 +29,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@storybook/addon-controls": "^7.1.0-rc.2",
     "@storybook/addon-essentials": "^7.1.0-rc.2",
     "@storybook/addon-interactions": "^7.1.0-rc.2",
     "@storybook/addon-links": "^7.1.0-rc.2",

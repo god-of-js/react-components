@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import '@storybook/addon-controls';
 
 const preview: Preview = {
   parameters: {
