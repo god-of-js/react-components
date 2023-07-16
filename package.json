@@ -40,6 +40,9 @@
     "@storybook/testing-library": "^0.2.0",
     "@svgr/webpack": "^8.0.1",
     "babel-plugin-inline-react-svg": "^2.0.2",
+    "eslint": "^8.45.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "prettier": "^3.0.0",
     "storybook": "^7.1.0-rc.2"
   }

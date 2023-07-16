@@ -1,12 +1,9 @@
 import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import UiInput from '@/components/UiPhoneInput';
 import { useState } from 'react';
 import UiForm from '@/components/UiForm';
 import UiButton from '@/components/UiButton';
 import FormTest from '@/utils/validations/FormTest';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -25,7 +22,7 @@ export default function Home() {
   }
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-between p-24`}
     >
       <UiForm formData={formData} schema={FormTest} onSubmit={onSubmit}>
         {({ errors }) => (
