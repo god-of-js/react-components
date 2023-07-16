@@ -81,7 +81,7 @@ export default function UiInput({
           <input
             placeholder="000 0000000"
             name={name}
-            value={value || ''}
+            value={value}
             className="w-full pl-2 outline-none bg-transparent text-black"
             onChange={sendValue}
           />
