@@ -1,7 +1,9 @@
 import ChevronDown from './icons/chevron-down.svg';
+import Hand from './icons/hand.svg';
 
 const icons = {
   ChevronDown,
+  Hand,
 };
 
 export type Icons = keyof typeof icons;

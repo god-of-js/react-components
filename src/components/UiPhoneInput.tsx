@@ -5,6 +5,7 @@ import en from 'react-phone-number-input/locale/en';
 import { useMemo, useState } from 'react';
 import UiSelect from './UiSelect';
 import UiField from './UiField';
+import UiIcon from './UiIcon';
 
 export type OnChangeParams = { name: string; value: string };
 export interface Props {
@@ -78,13 +79,16 @@ export default function UiInput({
               onChange={({ value }) => setSelectedCountry(value)}
             />
           </div>
-          <input
-            placeholder="000 0000000"
-            name={name}
-            value={value}
-            className="w-full pl-2 outline-none bg-transparent text-black"
-            onChange={sendValue}
-          />
+          <div className="flex items-center justify-between pr-4">
+            <input
+              placeholder={!!error ? "Insert Input" : "000 0000000"}
+              name={name}
+              value={value}
+              className={`w-full pl-2 outline-none bg-transparent text-black ${!!error ? 'placeholder:text-red-600' : ''}`}
+              onChange={sendValue}
+            />
+            {!!error && <UiIcon icon="Hand" />}
+          </div>
         </div>
       </div>
     </UiField>

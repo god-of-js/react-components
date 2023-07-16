@@ -5,7 +5,7 @@ import UiPhoneInput from '../components/UiPhoneInput';
 const meta: Meta<typeof UiPhoneInput> = {
   title: 'Components/UiPhoneInput',
   component: UiPhoneInput,
-  tags: ['autodocs']
+  tags: ['autodocs'],
 };
 
 export default meta;
