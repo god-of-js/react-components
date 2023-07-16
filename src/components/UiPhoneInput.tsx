@@ -81,10 +81,12 @@ export default function UiInput({
           </div>
           <div className="flex items-center justify-between pr-4">
             <input
-              placeholder={!!error ? "Insert Input" : "000 0000000"}
+              placeholder={!!error ? 'Insert Input' : '000 0000000'}
               name={name}
               value={value}
-              className={`w-full pl-2 outline-none bg-transparent text-black ${!!error ? 'placeholder:text-red-600' : ''}`}
+              className={`w-full pl-2 outline-none bg-transparent text-black ${
+                !!error ? 'placeholder:text-red-600' : ''
+              }`}
               onChange={sendValue}
             />
             {!!error && <UiIcon icon="Hand" />}
